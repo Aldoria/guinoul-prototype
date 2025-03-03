@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guinoul Construction</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title">Guinoul Construction</h1>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">Nos Services</h2>
+            <div class="services-grid" id="services-filter">
+                <div class="service-item" data-service="maconnerie">
+                    <i class="fas fa-building"></i>
+                    <h3>Maçonnerie générale</h3>
+                </div>
+                <div class="service-item" data-service="placo">
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Placo</h3>
+                </div>
+                <div class="service-item" data-service="charpente">
+                    <i class="fas fa-home"></i>
+                    <h3>Charpente</h3>
+                </div>
+                <div class="service-item" data-service="carrelage">
+                    <i class="fas fa-border-all"></i>
+                    <h3>Carrelage</h3>
+                </div>
+                <div class="service-item" data-service="cloture">
+                    <i class="fas fa-grip-lines-vertical"></i>
+                    <h3>Clôture</h3>
+                </div>
+                <div class="service-item" data-service="piscine">
+                    <i class="fas fa-swimming-pool"></i>
+                    <h3>Piscine</h3>
+                </div>
+                <div class="service-item active" data-service="tous">
+                    <i class="fas fa-th"></i>
+                    <h3>Toutes nos réalisations</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Nos Réalisations</h2>
+            
+            <!-- Galerie d'images filtrée -->
+            <div class="portfolio-container">
+                <div class="portfolio-filters">
+                    <p id="current-filter">Toutes nos réalisations</p>
+                </div>
+                
+                <div class="portfolio-gallery" id="portfolio-gallery">
+                    <!-- Les images seront générées dynamiquement par le JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contactez-nous</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>123 Rue de la Construction, 33000 Bordeaux</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>05 12 34 56 78</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>contact@guinoul-construction.fr</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <p>Lun-Ven: 8h-18h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Guinoul Construction. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX AVEC NAVIGATION -->
+    <div id="image-modal" class="modal">
+        <span class="modal-close">&times;</span>
+        <button id="modal-prev" class="modal-nav-btn modal-prev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <img id="modal-image" class="modal-content">
+        <button id="modal-next" class="modal-nav-btn modal-next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
