@@ -202,8 +202,32 @@ document.addEventListener('DOMContentLoaded', function() {
             // Ajouter la classe active au service cliqué
             this.classList.add('active');
             
+            // Obtenir le service sélectionné
+            const selectedService = this.getAttribute('data-service');
+            
             // Filtrer la galerie par le service sélectionné
-            renderFilteredGallery(this.getAttribute('data-service'));
+            renderFilteredGallery(selectedService);
+            
+            // Défilement vers la galerie avec un délai plus long
+            // pour s'assurer que toutes les opérations asynchrones sont terminées
+            setTimeout(() => {
+                const portfolioSection = document.getElementById('portfolio');
+                if (portfolioSection) {
+                    // Défiler vers la section portfolio avec une marge supérieure
+                    portfolioSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Petite correction de position pour améliorer la visibilité
+                    setTimeout(() => {
+                        window.scrollBy({
+                            top: -50, // Ajuster si nécessaire pour avoir une bonne marge
+                            behavior: 'smooth'
+                        });
+                    }, 500);
+                }
+            }, 600); // Délai augmenté pour laisser le temps au rendu
         });
     });
     
