@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'charpente',
         'carrelage',
         'cloture',
-        'piscine'
+        'piscine',
+        'terrassement'
     ];
 
     // Nombre approximatif d'images par service (pour la première charge)
@@ -29,7 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
         charpente: 10,
         carrelage: 10, 
         cloture: 10,
-        piscine: 10
+        piscine: 10,
+        terrassement: 10
     };
     
     let currentService = 'tous'; // Service actif par défaut
@@ -294,6 +296,30 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
         document.body.setAttribute('data-theme', 'dark');
         themeIcon.className = 'fas fa-sun';
+    }
+    
+    // Header compact au défilement
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.classList.add('compact');
+        } else {
+            header.classList.remove('compact');
+        }
+    });
+    
+    // Navigation vers la section contact
+    const contactBtn = document.getElementById('contact-btn');
+    if (contactBtn) {
+        contactBtn.addEventListener('click', function() {
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     }
     
     console.log('Initialisation terminée');

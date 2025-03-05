@@ -38,6 +38,7 @@ body {
     background-color: var(--background-color);
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
+    padding-top: 0; /* Ajusté pour le header sticky */
 }
 
 .container {
@@ -46,36 +47,117 @@ body {
     padding: 0 20px;
 }
 
-/* Header */
+/* Header élégant avec espace logo */
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
-    padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s ease, padding 0.3s ease;
 }
 
 .header-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--accent-color);
+    border-radius: 8px;
+    /* Retirer cette bordure quand vous ajouterez votre logo réel */
+    border: 2px dashed rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+/* En survolant l'emplacement du logo, on indique qu'il est remplaçable */
+.logo-placeholder:hover {
+    background-color: rgba(255,255,255,0.1);
+    cursor: pointer;
 }
 
 .site-title {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
-    text-align: center;
     margin: 0;
+    transition: font-size 0.3s ease;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
 }
 
 .theme-toggle {
     background: none;
     border: none;
     color: var(--header-text);
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
-    position: absolute;
-    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Header compact en défilement */
+header.compact {
+    padding: 8px 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+}
+
+header.compact .logo-placeholder {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+}
+
+header.compact .site-title {
+    font-size: 20px;
 }
 
 /* Sections */
@@ -122,10 +204,20 @@ section {
     text-align: center;
     box-shadow: 0 5px 15px var(--service-item-shadow);
     transition: transform 0.3s;
+    cursor: pointer;
 }
 
 .service-item:hover {
     transform: translateY(-10px);
+}
+
+.service-item.active {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.service-item.active i {
+    color: white;
 }
 
 .service-item i {
@@ -139,70 +231,58 @@ section {
     margin-bottom: 10px;
 }
 
-/* CAROUSEL */
-.simple-carousel {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0;
+/* Portfolio */
+.portfolio-container {
+    margin-bottom: 40px;
 }
 
-.simple-carousel-content {
-    position: relative;
+.portfolio-filters {
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: var(--service-item-bg);
     border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px var(--service-item-shadow);
 }
 
-.image-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: 1;  /* inférieur à la navigation */
-    cursor: pointer;
-}
-
-#carousel-image {
-    width: 100%;
-    height: 600px;
-    object-fit: contain;
-    display: block;
-    background-color: transparent;
-    transition: opacity 0.5s;
-}
-
-.simple-carousel-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    z-index: 2;  /* supérieur à l'image pour les boutons */
-    pointer-events: none;  /* Crucial: rend le div transparent aux clics */
-}
-
-.simple-carousel-btn {
-    background-color: var(--accent-color);
-    color: white;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+#current-filter {
     font-size: 18px;
-    transition: background-color 0.3s, transform 0.2s;
-    pointer-events: auto;  /* Crucial: permet les clics sur les boutons */
+    font-weight: 600;
+    margin: 0;
+    color: var(--accent-color);
 }
 
-.simple-carousel-btn:hover {
-    background-color: #2980b9;
-    transform: scale(1.1);
+.portfolio-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-gallery.fade {
+    opacity: 0.3;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px var(--service-item-shadow);
+    cursor: pointer;
+    height: 200px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
 
 /* Contact */
@@ -261,6 +341,7 @@ footer {
     margin: 0 auto;
     border-radius: 4px;
     box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
 }
 
 .modal-close {
@@ -279,171 +360,7 @@ footer {
     color: var(--accent-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    #carousel-image {
-        height: 450px;
-    }
-    
-    .simple-carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 576px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    #carousel-image {
-        height: 350px;
-    }
-    
-    .simple-carousel-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
-    }
-}
-
-/* AJOUT: Styles pour la galerie de portfolio */
-.service-item {
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.service-item.active {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-.service-item.active i {
-    color: white;
-}
-
-.portfolio-container {
-    margin-bottom: 40px;
-}
-
-.portfolio-filters {
-    margin-bottom: 20px;
-    text-align: center;
-    padding: 10px;
-    background-color: var(--service-item-bg);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--service-item-shadow);
-}
-
-#current-filter {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    color: var(--accent-color);
-}
-
-.portfolio-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-.portfolio-gallery.fade {
-    opacity: 0.3;
-}
-
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px var(--service-item-shadow);
-    cursor: pointer;
-    height: 200px;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-.gallery-item-tag {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 5px 10px;
-    font-size: 14px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.gallery-item:hover .gallery-item-tag {
-    opacity: 1;
-}
-
-/* Médias Queries pour la galerie */
-@media (max-width: 768px) {
-    .portfolio-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-    
-    .gallery-item {
-        height: 180px;
-    }
-}
-
-@media (max-width: 576px) {
-    .portfolio-gallery {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-    
-    .gallery-item {
-        height: 150px;
-    }
-}
-
-/* Modification pour la galerie */
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px var(--service-item-shadow);
-    cursor: pointer;
-    height: 200px;
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-/* Le reste du CSS reste inchangé, mais on peut supprimer le bloc gallery-item-tag 
-   ou simplement ne pas l'ajouter dans le JavaScript */
-
-   /* Styles pour les boutons de navigation de la lightbox */
+/* Styles pour les boutons de navigation de la lightbox */
 .modal-nav-btn {
     position: absolute;
     top: 50%;
@@ -476,7 +393,20 @@ footer {
     right: 20px;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .portfolio-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .gallery-item {
+        height: 180px;
+    }
+    
     .modal-nav-btn {
         width: 40px;
         height: 40px;
@@ -489,5 +419,59 @@ footer {
     
     .modal-next {
         right: 10px;
+    }
+    
+    /* Header responsive */
+    .site-title {
+        font-size: 20px;
+    }
+    
+    .logo-placeholder {
+        width: 40px;
+        height: 40px;
+        font-size: 22px;
+    }
+    
+    .nav-btn span {
+        display: none;
+    }
+    
+    .nav-btn {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .gallery-item {
+        height: 150px;
+    }
+    
+    /* Header très petit écran */
+    .logo-area {
+        gap: 10px;
+    }
+    
+    .logo-placeholder {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+    
+    .site-title {
+        font-size: 18px;
+    }
+    
+    .modal-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
     }
 }
