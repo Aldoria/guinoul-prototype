@@ -46,13 +46,37 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Éléments de la galerie trouvés');
     
-    // Fonction auxiliaire pour tester si une image existe
+    // Fonction auxiliaire pour tester si une image existe avec contournement du cache
     function imageExists(url, callback) {
         const img = new Image();
+        // Ajouter un paramètre aléatoire pour contourner le cache
+        const cacheBuster = `?v=${new Date().getTime()}`;
         img.onload = function() { callback(true); };
         img.onerror = function() { callback(false); };
-        img.src = url;
+        img.src = url + cacheBuster;
     }
+    
+    // Fonction pour réinitialiser le cache des images
+    function resetImageCache() {
+        // Réinitialiser le compteur d'images pour chaque service
+        for (let service in imageCountsByService) {
+            imageCountsByService[service] = 10; // Valeur par défaut
+        }
+        
+        // Vider le tableau des images actuelles
+        currentGalleryImages = [];
+        
+        // Effacer le contenu de la galerie
+        portfolioGallery.innerHTML = '';
+        
+        console.log('Cache d\'images réinitialisé');
+        
+        // Recharger les images du service actuel
+        renderFilteredGallery(currentService);
+    }
+    
+    // Exposer la fonction au scope global pour pouvoir l'appeler depuis la console
+    window.actualiserImages = resetImageCache;
 
     // Fonction pour générer la galerie filtrée
     function renderFilteredGallery(service) {
@@ -235,6 +259,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialiser la galerie avec toutes les images
     renderFilteredGallery('tous');
+    
+    // Afficher un message dans la console pour indiquer comment actualiser les images
+    console.info('Pour actualiser les images après modification des dossiers, utilisez la commande: actualiserImages()');
     
     // GESTION DE LA LIGHTBOX ET DE LA NAVIGATION
     
